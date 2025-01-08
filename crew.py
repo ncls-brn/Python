@@ -57,6 +57,7 @@ def add_member(crew):
 
     gender = input("Type of gender (M/F) : ")
     gender = gender.capitalize()
+    
 
     age = int(input("Age of new crew : "))
     if age > 65:
@@ -65,6 +66,7 @@ def add_member(crew):
 
 
     role = input("Role in crew : ")
+    role = role.capitalize()
 
     for member in crew:
         if member['last_name'] == last_name:
@@ -77,6 +79,10 @@ def add_member(crew):
 
     if len(last_name) < 3 or len(last_name) > 15:
         print("The last name must contain between 3 and 15 characters.")
+        return
+    
+    if len(gender)>1:
+        print("Gender must be M or F.")
         return
     
     if role == "pilot":
@@ -105,6 +111,7 @@ def add_member(crew):
 
 def remove_member(crew):
     last_name = input("Last name of member to be deleted : ")
+    last_name = last_name.capitalize()
 
     member_found = False
     for member in crew:
@@ -126,16 +133,16 @@ def check_crew(crew):
     has_engineer = False
 
     for member in crew:
-        if member['role'].lower() == 'pilot':
+        if member['role'] == 'Pilot':
             has_pilot = True
-        elif member['role'].lower() == 'engineer': 
+        elif member['role'] == 'Engineer': 
             has_engineer = True
 
     if not has_pilot:
-        print("The crew must include at least one pilot.")
+        print("The crew must include at least a pilot.")
     
     if not has_engineer:
-        print("The crew must include at least one engineer.")
+        print("The crew must include at least an engineer.")
     
     if has_pilot and has_engineer:
         print("The crew is ready for the mission!")
