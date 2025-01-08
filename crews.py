@@ -26,9 +26,10 @@ def principal_menu():
         print("2. Delete member")
         print("3. Display crew")
         print("4. Check if the crew is ready")
-        print("5. Exit")
+        print("5. Crew report")
+        print("6. Exit")
         
-        choice = input("Please select an option 1 to 5: ")
+        choice = input("Please select an option 1 to 6: ")
 
         match choice:
             case "1":
@@ -40,17 +41,18 @@ def principal_menu():
             case "4":
                 check_crew(crew)
             case "5":
+                crew_report(crew)
+            case "6":
                 print("bye bye !")
                 break
             case _:
-                print("Please choose a number between 1 and 5.")
+                print("Please choose a number between 1 and 6.")
         
         action_count += 1       
         print("Count:",action_count)
         if action_count >= 5:
             random_event(crew)
             action_count = 0  
-
 
 def display_crew(crew):
     if not crew:
@@ -59,7 +61,6 @@ def display_crew(crew):
         for member in crew:
             print(f"First name: {member['first_name']}, Last name: {member['last_name']}, Genre: {member['gender']}, Age: {member['age']}, Role: {member['role']}")           
         print("Number of crew members:", len(crew))
-            
 
 def add_member(crew):
     first_name = input("first name crew : ")
@@ -200,10 +201,7 @@ def random_event(crew):
 
     else:
         print("Something unexpected happened, but no one was affected!")
-
-principal_menu()
-
-
+        
 def crew_report(crew):
     total_members = len(crew)
     print(f"Total number of crew members: {total_members}")
@@ -227,17 +225,16 @@ def crew_report(crew):
     max_age = 65
     close_to_max_age = [member for member in crew if member['age'] >= max_age - 5]
     
-    print("\nMembers close to the maximum age (>= 60 years old):")
+    print("\nMembers close to the maximum age >= 60 years old:")
     if close_to_max_age:
         for member in close_to_max_age:
             print(f"{member['first_name']} {member['last_name']} ({member['age']} years old) - Role: {member['role']}")
     else:
         print("No members close to the maximum age.")
     
-    removed_members = [member for member in crew if member['age'] == 65]
-    if removed_members:
-        print("\nThe following members have retired due to age:")
-        for member in removed_members:
-            print(f"{member['first_name']} {member['last_name']} ({member['age']} years old) - Role: {member['role']}")
+
+
+
+principal_menu()
 
 
