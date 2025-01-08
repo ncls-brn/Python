@@ -1,4 +1,4 @@
-def main():
+def principal_menu():
     crew = [
         {
             "first_name": "John",
@@ -24,7 +24,7 @@ def main():
         print("4. Check if the crew is ready")
         print("5. Exit")
         
-        choice = input("Please select an option (1-5): ")
+        choice = input("Please select an option 1 to 5: ")
 
         match choice:
             case "1":
@@ -59,6 +59,11 @@ def add_member(crew):
     gender = gender.capitalize()
 
     age = int(input("Age of new crew : "))
+    if age > 65:
+        print("A crew member cannot be older than 65 years old.")
+        return
+
+
     role = input("Role in crew : ")
 
     for member in crew:
@@ -74,6 +79,19 @@ def add_member(crew):
         print("The last name must contain between 3 and 15 characters.")
         return
     
+    if role == "pilot":
+        if age < 25:
+            print("A pilot must be older than 25 old.")
+            return
+        
+    
+    if role == "engineer":
+        if age < 18:
+            print("An engineer  must be older than 18 old.")
+            return
+        
+   
+        
     new_member = {
         "first_name": first_name,
         "last_name": last_name,
@@ -124,4 +142,4 @@ def check_crew(crew):
 
 
 
-main()
+principal_menu()
