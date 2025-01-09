@@ -89,3 +89,37 @@ def check_crew(crew):
         print("L'équipage est prêt pour la mission !")
     else:
         print("L'équipage n'est pas complet pour la mission !")
+
+
+def crew_report(crew):
+    total_members = len(crew)
+    print(f"Nombre total de l'équipage : {total_members}")
+    
+    role_distribution = {}
+    for member in crew:
+        role = member['role']
+        if role in role_distribution:
+            role_distribution[role] += 1
+        else:
+            role_distribution[role] = 1
+    
+    print("\nDistribution des rôles:")
+    for role, count in role_distribution.items():
+        print("-" * 25)
+        print(f"{role}: {count} membres")
+        
+    
+    
+    crew[:] = [member for member in crew if member['age'] != 65]
+    
+    
+    max_age = 65
+    close_to_max_age = [member for member in crew if member['age'] >= max_age - 5]
+    
+    print("\nMembres proche de l'age maximum >= 60ans:")
+    if close_to_max_age:
+        for member in close_to_max_age:
+            print(f"{member['first_name']} {member['last_name']} ({member['age']} ans) - Role: {member['role']}")
+    else:
+        print("Aucun membres n'est proche de l'age de la retraite.")
+    

@@ -34,7 +34,8 @@ while True:
     print("2. Supprimer un membre")
     print("3. Afficher l'équipage")
     print("4. Vérifier l'équipage")
-    print("5. Quitter le menu")
+    print("5. rapport d'équipage")
+    print("6. Quitter le menu")
 
     choice = int(input("Choisissez l'option souhaitée : "))
 
@@ -48,6 +49,8 @@ while True:
         case 4:
             crew.check_crew(members)
         case 5:
+            crew.crew_report(members)
+        case 6:
             break
         case _:
             print("Le choix sélectionné n'existe pas.")
