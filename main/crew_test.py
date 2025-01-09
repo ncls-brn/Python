@@ -90,15 +90,12 @@ def create_fleet():
     fleet_name = input("Entrez le nom de la flotte : ")
     return Fleet(fleet_name)
 
-def menu():
-    fleet = Fleet("Flotte Alpha")
-    spaceship = Spaceship("Vaisseau 1", "Transport", "Opérationnel")
-
+def menu(spaceship, fleet):
     while True:
         print("\nMENU :")
         print("1. Ajouter un membre")
         print("2. Supprimer un membre")
-        print("3. Afficher l'équipage")
+        print("3. Afficher l'équipage d'un vaisseau")
         print("4. Rapport d'équipage")
         print("5. Créer un vaisseau")
         print("6. Créer une flotte")
@@ -108,17 +105,18 @@ def menu():
 
         match choice:
             case 1:
-                add_member(spaceship, fleet)
+                add_member(spaceship, fleet)  # Ajouter un membre à l'équipage du vaisseau
             case 2:
-                remove_member(spaceship)
+                remove_member(spaceship)  # Supprimer un membre d'un vaisseau
             case 3:
-                display_crew(spaceship)
+                display_crew(spaceship)  # Afficher l'équipage d'un vaisseau
             case 4:
-                report_crew(spaceship)
+                report_crew(spaceship)  # Afficher le rapport d'équipage du vaisseau
             case 5:
-                spaceship = create_spaceship()
+                spaceship = create_spaceship()  # Créer un nouveau vaisseau
+                fleet.add_spaceship(spaceship)  # Ajouter le vaisseau à la flotte
             case 6:
-                fleet = create_fleet()
+                fleet = create_fleet()  # Créer une nouvelle flotte
             case 7:
                 print("Quitter le menu.")
                 break
