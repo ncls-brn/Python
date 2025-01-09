@@ -3,18 +3,18 @@ import random
 def principal_menu():
     crew = [
         {
-            "first_name": "John",
-            "last_name": "Doe",
+            "first_name": "Bel",
+            "last_name": "Riose",
             "gender": "M",
-            "age": 25,
+            "age": 48,
             "role": "Commandant"
         },
         {
-            "first_name": "Jane",
-            "last_name": "Doe",
+            "first_name": "Gaal",
+            "last_name": "Dornick",
             "gender": "F",
-            "age": 24,
-            "role": "Second commandant"
+            "age": 34,
+            "role": "Engineer"
         },
     ]
 
@@ -54,6 +54,7 @@ def principal_menu():
             random_event(crew)
             action_count = 0  
 
+
 def display_crew(crew):
     if not crew:
         print("Crew is empty !")
@@ -87,11 +88,11 @@ def add_member(crew):
             print("The last name must be unique.")
             return  
 
-    if len(first_name) < 3 or len(first_name) > 15:
+    while len(first_name) < 3 or len(first_name) > 15:
         print("The first name must contain between 3 and 15 characters.")
         return
 
-    if len(last_name) < 3 or len(last_name) > 15:
+    while len(last_name) < 3 or len(last_name) > 15:
         print("The last name must contain between 3 and 15 characters.")
         return
     
@@ -179,7 +180,7 @@ def random_event(crew):
             
     elif event == "A crew member has been promoted to a new role.":
            
-        roles = ["Doctor", "Engineer", "Pilot", "Cook", "Navigator", "Biologist", "Soldier", "Second commandant", "Radio Staff","Commandant"]
+        roles = ["Doctor", "Engineer", "Pilot", "Cook", "Navigator", "Biologist", "Soldier", "Armourer", "Radio Staff","Commandant"]
     
         member_to_promote = random.choice(crew)
        
