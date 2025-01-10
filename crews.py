@@ -92,7 +92,7 @@ def add_member(crew):
         print("The first name must contain between 3 and 15 characters.")
         return
 
-    while len(last_name) < 3 or len(last_name) > 15:
+    if len(last_name) < 3 or len(last_name) > 15:
         print("The last name must contain between 3 and 15 characters.")
         return
     
