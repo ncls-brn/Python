@@ -142,7 +142,7 @@ def add_member_to_spaceship(fleet):
 
     # Supprimer le membre ajouté de la liste `crew` pour qu'il ne soit plus disponible
     del crew[choice]
-    print(f"{member_to_add.first_name} {member_to_add.last_name} a été ajouté au vaisseau {spaceship.name} et supprimé de l'équipage.")
+    print(f"{member_to_add.first_name} {member_to_add.last_name} a été ajouté au vaisseau {spaceship.name} et supprimé de l'équipage au sol.")
 
 # Effectuer des actions sur un membre du vaisseau
 def crew_action(fleet):
@@ -199,7 +199,8 @@ def crew_action(fleet):
 def add_spaceship(fleet):
     name = input("Nom du vaisseau : ")
     ship_type = input("Type du vaisseau (transport, guerre, marchand) : ")
-    spaceship = Spaceship(name, ship_type)
+    ship_condition = input("Condition du vaisseau (operatonnel, endommage) : ")
+    spaceship = Spaceship(name, ship_type, ship_condition)
     fleet.add_spaceship(spaceship)
 
 # Vérifier la préparation de la flotte et afficher les détails de l'équipage
@@ -221,13 +222,13 @@ def check_fleet_preparation(fleet):
             print(f"Le vaisseau {spaceship.name} est prêt pour la mission.")
         else:
             print(f"Le vaisseau {spaceship.name} n'est pas prêt. Il manque des membres essentiels.")
-
-
+       
+ 
+        
 def save_data(fleet, crew, file_name="./main1/data.json"):
-    
     data = {
         "crew": [member.to_dict() for member in crew],  
-        "spaceships": [spaceship.to_dict() for spaceship in fleet.spaceships]  
+        "spaceships": [spaceship.to_dict() for spaceship in fleet.spaceships]
     }
 
     print("Données à sauvegarder:", data)  
@@ -237,36 +238,14 @@ def save_data(fleet, crew, file_name="./main1/data.json"):
             json.dump(data, f, indent=4) 
         print(f"Données sauvegardées avec succès dans {file_name}")
     except Exception as e:
-        print(f"Erreur lors de la sauvegarde des données: {e}")
-  
+        print(f"Erreur lors de la sauvegarde des données: {e}")  
+
+
 def load_data(file_name="./main1/data.json"):
     try:
-        with open(file_name, "r+") as f:
+        with open(file_name, "r") as f:
             data = json.load(f)
         
-        # Initialisation de la liste crew
-        crew = []
-        
-        # Charger les membres d'équipage
-        for member_data in data.get("crew", []):
-            if "role" in member_data and member_data["role"]:  # Si c'est un opérateur
-                member = Operator(
-                    member_data["first_name"],
-                    member_data["last_name"],
-                    member_data["gender"],
-                    member_data["age"],
-                    member_data["role"]
-                )
-            else:  # C'est une personne générique
-                member = Person(
-                    member_data["first_name"],
-                    member_data["last_name"],
-                    member_data["gender"],
-                    member_data["age"]
-                )
-            crew.append(member)
-
-        # Charger les vaisseaux et leur équipage
         fleet = Fleet("Flotte Alpha")
         for spaceship_data in data.get("spaceships", []):
             spaceship = Spaceship(
@@ -274,26 +253,18 @@ def load_data(file_name="./main1/data.json"):
                 spaceship_data["ship_type"],
                 spaceship_data["condition"]
             )
-            for member_data in spaceship_data["crew"]:
-                # Trouver le membre dans l'équipage
-                member = next(
-                    (m for m in crew if 
-                     m.get_first_name() == member_data["first_name"] and 
-                     m.get_last_name() == member_data["last_name"] and 
-                     m.get_gender() == member_data["gender"] and 
-                     m.get_age() == member_data["age"]),
-                    None
-                )
-                if member:
-                    spaceship.add_member(member)
+            
+            
+                
+           
             fleet.add_spaceship(spaceship)  
 
         print("Données chargées avec succès.")
         return fleet, crew
+
     except FileNotFoundError:
         print(f"Aucun fichier trouvé avec le nom {file_name}.")
-        return Fleet("Flotte Alpha"), []  # Retourner une flotte vide et un équipage vide si le fichier n'existe pas
-
+        return Fleet("Flotte Alpha"), [] 
 
 def main():
     fleet, crew = load_data()  

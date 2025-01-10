@@ -17,6 +17,10 @@ class Person:
     def get_age(self):
         return self.age
     
+    
+    def introduce_yourself(self):
+        return f"Je m'appelle {self.first_name} {self.last_name}, j'ai {self.age} ans."
+    
     def to_dict(self):
         return {
             "first_name": self.first_name,
@@ -25,5 +29,4 @@ class Person:
             "age": self.age
         }    
     
-    def introduce_yourself(self):
-        return f"Je m'appelle {self.first_name} {self.last_name}, j'ai {self.age} ans."
+    

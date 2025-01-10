@@ -41,8 +41,8 @@ def display_crew(crew):
 
 def check_crew(crew):
     if len(crew) >= 2:
-        pilots = [m for m in crew if m['role'] == "pilote"]
-        technicians = [m for m in crew if m['role'] == "technicien"]
+        pilots = [m for m in crew if m['rRôle'] == "pilote"]
+        technicians = [m for m in crew if m['Rôle'] == "technicien"]
         if pilots and technicians:
             print("L’équipage est prêt pour la mission !")
         else:

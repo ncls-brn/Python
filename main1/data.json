@@ -2,15 +2,9 @@
     "crew": [],
     "spaceships": [
         {
-            "name": "mars",
+            "name": "Venus",
             "ship_type": "guerre",
-            "condition": "operationnel",
-            "crew": []
-        },
-        {
-            "name": "ariane",
-            "ship_type": "guerre",
-            "condition": "operationnel",
+            "condition": "dommage ",
             "crew": []
         }
     ]

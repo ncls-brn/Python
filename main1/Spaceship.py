@@ -2,20 +2,20 @@ from Operator import Operator
 from Mentalist import Mentalist
 
 class Spaceship:
-    def __init__(self, name, ship_type, condition="operationnel"):
+    def __init__(self, name, ship_type, condition):
         self.name = name
         self.ship_type = ship_type
         self.condition = condition
         self.crew = []
     
     def get_name(self):
-        return self.__name
+        return self.name
     
     def get_ship_type(self):
-        return self.__ship_type
+        return self.ship_type
     
     def get_condition(self):
-        return self.__condition
+        return self.condition
     
     def add_member(self, member):
         self.crew.append(member)
@@ -49,17 +49,25 @@ class Spaceship:
             return False
 
     def display_crew_details(self):
-        if not self.crew:
-            print(f"L'équipage du vaisseau {self.name} est vide.")
-            return
-        
-        print(f"Détails de l'équipage du vaisseau {self.name} :")
+      
+        if self.crew:
+          print(f"Détails de l'équipage du vaisseau {self.name} :")
         for member in self.crew:
             print(f"Nom : {member.first_name} {member.last_name}")
             print(f"Genre : {member.gender}")
             print(f"Âge : {member.age} ans")
             if isinstance(member, Operator):
                 print(f"Rôle : {member.role}")
+                print(f"experience : {member.experience}")
             elif isinstance(member, Mentalist):
                 print(f"Mana : {member.mana}")
             print("-----------------------------")
+
+          
+                
+        if not self.crew:
+            print(f"L'équipage du vaisseau {self.name} est vide.")
+            return
+        
+        
+
