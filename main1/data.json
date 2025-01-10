@@ -1,0 +1,17 @@
+{
+    "crew": [],
+    "spaceships": [
+        {
+            "name": "mars",
+            "ship_type": "guerre",
+            "condition": "operationnel",
+            "crew": []
+        },
+        {
+            "name": "ariane",
+            "ship_type": "guerre",
+            "condition": "operationnel",
+            "crew": []
+        }
+    ]
+}

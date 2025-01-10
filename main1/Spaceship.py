@@ -2,14 +2,35 @@ from Operator import Operator
 from Mentalist import Mentalist
 
 class Spaceship:
-    def __init__(self, name, ship_type, condition="opérationnel"):
+    def __init__(self, name, ship_type, condition="operationnel"):
         self.name = name
         self.ship_type = ship_type
         self.condition = condition
         self.crew = []
-
+    
+    def get_name(self):
+        return self.__name
+    
+    def get_ship_type(self):
+        return self.__ship_type
+    
+    def get_condition(self):
+        return self.__condition
+    
     def add_member(self, member):
-        if len(self.crew) < 10:  # Capacité maximale de 10 membres par vaisseau
+        self.crew.append(member)
+    
+    
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "ship_type": self.ship_type,
+            "condition": self.condition,
+            "crew": [member.to_dict() for member in self.crew] 
+        }    
+    
+    def add_member(self, member):
+        if len(self.crew) < 10: 
             self.crew.append(member)
             print(f"{member.first_name} {member.last_name} ajouté à l'équipage du vaisseau {self.name}.")
         else:

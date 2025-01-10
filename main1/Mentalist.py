@@ -5,6 +5,11 @@ class Mentalist(Person):
         super().__init__(first_name, last_name, gender, age)
         self.mana = mana
 
+    def to_dict(self):
+        data = super().to_dict()
+        data["mana"] = self.mana
+        return data
+    
     def act(self, target):
         if self.mana >= 20:
             self.mana -= 20
