@@ -6,7 +6,7 @@ from Fleet import Fleet
 import json
 
 
-crew = []
+crews = []
 
 # Ajout d'une personne générique à l'équipage
 def add_person():
@@ -34,14 +34,14 @@ def add_person():
         age = int(input("Âge (maximum 65 ans) : "))
 
     # Vérifier si le nom de famille est unique
-    for member in crew:
+    for member in crews:
         if member.last_name.lower() == last_name.lower():
             print("Le nom de famille doit être unique.")
             return
 
     # Créer la personne et l'ajouter à l'équipage
     person = Person(first_name, last_name, gender, age)
-    crew.append(person)
+    crews.append(person)
     print(f"{first_name} {last_name} ajouté à l'équipage en tant que personne civil.")
 
 # Ajouter un opérateur à l'équipage
@@ -70,12 +70,12 @@ def add_operator():
             print("le pilote doit etre agé de plus de 18ans!")
             return 
           
-    for member in crew:
+    for member in crews:
         if member.last_name.lower() == last_name.lower():
             print("Le nom de famille doit être unique.")
             return           
     operator = Operator(first_name, last_name, gender, age, role)
-    crew.append(operator)
+    crews.append(operator)
     print(f"{first_name} {last_name} ajouté à l'équipage en tant qu'{role}.")
 
 # Ajouter un mentaliste à l'équipage
@@ -95,21 +95,21 @@ def add_mentalist():
         print("Aucun membre ne peut avoir plus de 65ans...")
         return
       
-    for member in crew:
+    for member in crews:
         if member.last_name.lower() == last_name.lower():
             print("Le nom de famille doit être unique.")
             return  
     mentalist = Mentalist(first_name, last_name, gender, age)
     
-    crew.append(mentalist)
+    crews.append(mentalist)
     print(f"{first_name} {last_name} ajouté à l'équipage en tant que mentaliste.")
 
 # Afficher l'équipage
 def display_crew():
-    if not crew:
-        print("L'équipage est vide.")
+    if not crews:
+        print("L'équipage au sol est vide.")
     else:
-        for i, member in enumerate(crew, 1):
+        for i, member in enumerate(crews, 1):
             print(f"{i}. {member.first_name} {member.last_name} - {member.role} ({member.age} ans)")
             print(f"  - {member.introduce_yourself()}")
 
@@ -127,21 +127,21 @@ def add_member_to_spaceship(fleet):
 
     # Afficher la liste des membres existants dans l'équipage
     print("Sélectionnez un membre à ajouter au vaisseau:")
-    if not crew:
+    if not crews:
         print("Aucun membre disponible dans l'équipage.")
         return
 
-    for i, member in enumerate(crew, 1):
+    for i, member in enumerate(crews, 1):
         print(f"{i}. {member.first_name} {member.last_name} - {member.role} ({member.age} ans)")
     
     choice = int(input("Choisissez un membre (numéro) : ")) - 1
-    member_to_add = crew[choice]
+    member_to_add = crews[choice]
 
     # Ajouter le membre sélectionné au vaisseau
     spaceship.add_member(member_to_add)
 
     # Supprimer le membre ajouté de la liste `crew` pour qu'il ne soit plus disponible
-    del crew[choice]
+    del crews[choice]
     print(f"{member_to_add.first_name} {member_to_add.last_name} a été ajouté au vaisseau {spaceship.name} et supprimé de l'équipage au sol.")
 
 # Effectuer des actions sur un membre du vaisseau
@@ -279,7 +279,41 @@ def load_data(file_name="./main1/data.json"):
         
         fleet = Fleet("Flotte Alpha")
         
-        # Charger les vaisseaux
+        # Charger les membres de l'équipage au sol (crews)
+        global crews
+        crews = []  # Initialiser la liste des membres au sol
+        for member_data in data.get("crew", []):
+            role = member_data.get("role") or member_data.get("Rôle")  # Gestion des variations de clé 'role'
+            
+            if role == "civil":
+                member = Person(
+                    member_data["first_name"],
+                    member_data["last_name"],
+                    member_data["gender"],
+                    member_data["age"]
+                )
+            elif role == "pilote" or role == "technicien":
+                member = Operator(
+                    member_data["first_name"],
+                    member_data["last_name"],
+                    member_data["gender"],
+                    member_data["age"],
+                    role  # Le rôle sera "pilote" ou "technicien"
+                )
+            elif role == "mentalist":
+                member = Mentalist(
+                    member_data["first_name"],
+                    member_data["last_name"],
+                    member_data["gender"],
+                    member_data["age"]
+                )
+            else:
+                print(f"Rôle inconnu : {role}. Impossible de charger ce membre.")
+                continue
+            
+            crews.append(member)  # Ajouter le membre à l'équipage au sol
+
+        # Charger les vaisseaux et leurs équipages
         for spaceship_data in data.get("spaceships", []):
             spaceship = Spaceship(
                 spaceship_data["name"],
@@ -287,9 +321,8 @@ def load_data(file_name="./main1/data.json"):
                 spaceship_data["condition"]
             )
             
-            # Charger les membres d'équipage
+            # Charger les membres d'équipage pour chaque vaisseau
             for member_data in spaceship_data.get("crew", []):
-                # Récupérer le rôle, en vérifiant les variations dans les noms de clé
                 role = member_data.get("role") or member_data.get("Rôle")
 
                 if role == "civil":
@@ -305,7 +338,7 @@ def load_data(file_name="./main1/data.json"):
                         member_data["last_name"],
                         member_data["gender"],
                         member_data["age"],
-                        role  # Le rôle sera "pilote" ou "technicien"
+                        role
                     )
                 elif role == "mentalist":
                     member = Mentalist(
@@ -318,12 +351,12 @@ def load_data(file_name="./main1/data.json"):
                     print(f"Rôle inconnu : {role}. Impossible de charger ce membre.")
                     continue
                 
-                spaceship.add_member(member)  # Ajouter le membre d'équipage au vaisseau
+                spaceship.add_member(member)  # Ajouter le membre au vaisseau
                 
             fleet.add_spaceship(spaceship)  # Ajouter le vaisseau à la flotte
 
         print("Données chargées avec succès.")
-        return fleet, crew
+        return fleet, crews  # Retourner à la fois la flotte et l'équipage au sol
 
     except FileNotFoundError:
         print(f"Aucun fichier trouvé avec le nom {file_name}.")

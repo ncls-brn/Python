@@ -1,5 +1,14 @@
 {
-    "crew": [],
+    "crew": [
+        {
+            "first_name": "gtg",
+            "last_name": "gtg",
+            "gender": "m",
+            "age": 33,
+            "role": "pilote",
+            "R\u00f4le": "pilote"
+        }
+    ],
     "spaceships": [
         {
             "name": "Venus",
@@ -20,6 +29,13 @@
                     "age": 55,
                     "role": "mentalist",
                     "mana": 10
+                },
+                {
+                    "first_name": "azer",
+                    "last_name": "azer",
+                    "gender": "m",
+                    "age": 55,
+                    "role": "civil"
                 }
             ]
         }
