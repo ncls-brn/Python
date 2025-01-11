@@ -21,6 +21,6 @@ class Operator(Person):
         print(f"{self.first_name} {self.last_name} est en action en tant que {self.role}.")
 
     def gain_experience(self):
-        self.experience += 1
-        print(f"{self.first_name} {self.last_name} a gagné 1 point d'expérience.")
+        self.experience += 3
+        print(f"{self.first_name} {self.last_name} a gagné 3 point d'expérience.")
 

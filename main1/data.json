@@ -1,5 +1,14 @@
 {
-    "crew": [],
+    "crew": [
+        {
+            "first_name": "fre",
+            "last_name": "fre",
+            "gender": "m",
+            "age": 55,
+            "role": "mentalist",
+            "mana": 10
+        }
+    ],
     "spaceships": [
         {
             "name": "Venus",

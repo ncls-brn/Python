@@ -10,7 +10,7 @@ crew = []
 
 # Ajout d'une personne générique à l'équipage
 def add_person():
-    print("Création d'un nouveau membre d'équipage (Personne Générique)")
+    print("Création d'un nouveau membre d'équipage (Personne Civil)")
 
     # Demander le prénom
     first_name = input("Prénom : ")
@@ -42,7 +42,7 @@ def add_person():
     # Créer la personne et l'ajouter à l'équipage
     person = Person(first_name, last_name, gender, age)
     crew.append(person)
-    print(f"{first_name} {last_name} ajouté à l'équipage en tant que personne générique.")
+    print(f"{first_name} {last_name} ajouté à l'équipage en tant que personne civil.")
 
 # Ajouter un opérateur à l'équipage
 def add_operator():
@@ -110,7 +110,7 @@ def display_crew():
         print("L'équipage est vide.")
     else:
         for i, member in enumerate(crew, 1):
-            print(f"{i}. {member.first_name} {member.last_name} - {member.__class__.__name__} ({member.age} ans)")
+            print(f"{i}. {member.first_name} {member.last_name} - {member.role} ({member.age} ans)")
             print(f"  - {member.introduce_yourself()}")
 
 # Ajouter un membre à un vaisseau spécifique
@@ -132,7 +132,7 @@ def add_member_to_spaceship(fleet):
         return
 
     for i, member in enumerate(crew, 1):
-        print(f"{i}. {member.first_name} {member.last_name} - {member.__class__.__name__} ({member.age} ans)")
+        print(f"{i}. {member.first_name} {member.last_name} - {member.role} ({member.age} ans)")
     
     choice = int(input("Choisissez un membre (numéro) : ")) - 1
     member_to_add = crew[choice]
@@ -155,37 +155,68 @@ def crew_action(fleet):
     for i, spaceship in enumerate(fleet.spaceships, 1):
         print(f"{i}. {spaceship.name}")
     
-    choice = int(input("Choisissez un vaisseau (numéro) : ")) - 1
-    spaceship = fleet.spaceships[choice]
+    try:
+        choice = int(input("Choisissez un vaisseau (numéro) : ")) - 1
+        spaceship = fleet.spaceships[choice]
+    except (ValueError, IndexError):
+        print("Choix invalide. Veuillez entrer un numéro valide.")
+        return
 
-    if not spaceship.crew:
+    # Vérifier si le vaisseau a un équipage
+    if not spaceship.crew:  # Utilisation de l'attribut crew directement
         print(f"Le vaisseau {spaceship.name} n'a pas d'équipage.")
         return
 
     # Afficher la liste des membres du vaisseau
     print(f"\nMembres de l'équipage du vaisseau {spaceship.name}:")
-    for i, member in enumerate(spaceship.crew, 1):
-        print(f"{i}. {member.first_name} {member.last_name} - {member.__class__.__name__} ({member.age} ans)")
+    for i, member in enumerate(spaceship.crew, 1):  # Utilisation de l'attribut crew
+        print(f"{i}. {member.first_name} {member.last_name} - {member.role} ({member.age} ans)")
 
-    choice = int(input("Choisissez un membre (numéro) pour effectuer une action : ")) - 1
-    member_to_act = spaceship.crew[choice]
+    try:
+        choice = int(input("Choisissez un membre (numéro) pour effectuer une action : ")) - 1
+        member_to_act = spaceship.crew[choice]  # Utilisation de l'attribut crew
+    except (ValueError, IndexError):
+        print("Choix invalide. Veuillez entrer un numéro valide.")
+        return
 
     # Effectuer l'action en fonction du type de membre
     if isinstance(member_to_act, Operator):
-        action = input("Choisissez une action : [act] pour agir, [promote] pour promouvoir : ")
-        if action == "act":
+        action = input("Choisissez une action : [piloter] pour piloter, [maintenance] pour effectuer une maintenance, [act] pour agir : ")
+        
+        if action == "piloter":
+            print(f"{member_to_act.first_name} {member_to_act.last_name} pilote le vaisseau.")
+            member_to_act.gain_experience()  # Augmente l'expérience pour le pilote
+        elif action == "maintenance":
+            print(f"{member_to_act.first_name} {member_to_act.last_name} effectue la maintenance du vaisseau.")
+            member_to_act.gain_experience()  # Augmente l'expérience pour le technicien
+        elif action == "act":
             member_to_act.act()
-        elif action == "promote":
-            member_to_act.promote()
         else:
             print("Action non reconnue.")
     elif isinstance(member_to_act, Mentalist):
         action = input("Choisissez une action : [act] pour agir, [recharge] pour recharger le mana : ")
+
+        # Vérification du mana du Mentalist avant d'agir
+        if member_to_act.mana <= 19:
+            print(f"{member_to_act.first_name} {member_to_act.last_name} n'a pas assez de mana pour agir.")
+            if action == "recharge":
+                member_to_act.recharge_mana()  # Recharger le mana
+            return  # Si le mana est insuffisant, ne pas continuer l'action
+
         if action == "act":
             target_name = input("Ciblez un membre du vaisseau (nom) : ")
-            target = next((m for m in spaceship.crew if m.first_name == target_name), None)
+            target = next((m for m in spaceship.crew if m.first_name == target_name), None)  # Utilisation de `first_name`
+            
             if target:
                 member_to_act.act(target)
+
+                # Si le membre ciblé est un opérateur (pilote ou technicien), il perd 1 point d'expérience
+                if isinstance(target, Operator):       
+                    if target.experience > 0:  # Si le pilote ou technicien a de l'expérience
+                        target.experience -= 1
+                        print(f"{target.first_name} {target.last_name} perd 1 point d'expérience.")
+                    else:
+                        print(f"{target.first_name} {target.last_name} n'a pas assez d'expérience pour en perdre.")
             else:
                 print("Cible non trouvée.")
         elif action == "recharge":

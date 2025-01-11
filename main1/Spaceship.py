@@ -1,5 +1,6 @@
 from Operator import Operator
 from Mentalist import Mentalist
+from Person import Person
 
 class Spaceship:
     def __init__(self, name, ship_type, condition):
@@ -7,6 +8,9 @@ class Spaceship:
         self.ship_type = ship_type
         self.condition = condition
         self.crew = []
+    
+    def get_crew(self):
+        return self.crew
     
     def get_name(self):
         return self.name
@@ -60,7 +64,10 @@ class Spaceship:
                 print(f"Rôle : {member.role}")
                 print(f"experience : {member.experience}")
             elif isinstance(member, Mentalist):
+                print(f"Rôle:{member.role}")
                 print(f"Mana : {member.mana}")
+            elif isinstance(member, Person):
+                print(f"Rôle: {member.role}")   
             print("-----------------------------")
 
           

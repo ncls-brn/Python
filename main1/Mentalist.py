@@ -1,9 +1,10 @@
 from Person import Person
 
 class Mentalist(Person):
-    def __init__(self, first_name, last_name, gender, age, mana=10):
+    def __init__(self, first_name, last_name, gender, age,role= "mentalist", mana=10):
         super().__init__(first_name, last_name, gender, age)
         self.mana = mana
+        self.role= role
 
     def to_dict(self):
         data = super().to_dict()
