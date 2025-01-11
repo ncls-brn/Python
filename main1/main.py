@@ -278,6 +278,8 @@ def load_data(file_name="./main1/data.json"):
             data = json.load(f)
         
         fleet = Fleet("Flotte Alpha")
+        
+        # Charger les vaisseaux
         for spaceship_data in data.get("spaceships", []):
             spaceship = Spaceship(
                 spaceship_data["name"],
@@ -285,17 +287,47 @@ def load_data(file_name="./main1/data.json"):
                 spaceship_data["condition"]
             )
             
-            
+            # Charger les membres d'équipage
+            for member_data in spaceship_data.get("crew", []):
+                # Récupérer le rôle, en vérifiant les variations dans les noms de clé
+                role = member_data.get("role") or member_data.get("Rôle")
+
+                if role == "civil":
+                    member = Person(
+                        member_data["first_name"],
+                        member_data["last_name"],
+                        member_data["gender"],
+                        member_data["age"]
+                    )
+                elif role == "pilote" or role == "technicien":
+                    member = Operator(
+                        member_data["first_name"],
+                        member_data["last_name"],
+                        member_data["gender"],
+                        member_data["age"],
+                        role  # Le rôle sera "pilote" ou "technicien"
+                    )
+                elif role == "mentalist":
+                    member = Mentalist(
+                        member_data["first_name"],
+                        member_data["last_name"],
+                        member_data["gender"],
+                        member_data["age"]
+                    )
+                else:
+                    print(f"Rôle inconnu : {role}. Impossible de charger ce membre.")
+                    continue
                 
-           
-            fleet.add_spaceship(spaceship)  
+                spaceship.add_member(member)  # Ajouter le membre d'équipage au vaisseau
+                
+            fleet.add_spaceship(spaceship)  # Ajouter le vaisseau à la flotte
 
         print("Données chargées avec succès.")
         return fleet, crew
 
     except FileNotFoundError:
         print(f"Aucun fichier trouvé avec le nom {file_name}.")
-        return Fleet("Flotte Alpha"), [] 
+        return Fleet("Flotte Alpha"), []
 
 def main():
     fleet, crew = load_data()  

@@ -1,20 +1,27 @@
 {
-    "crew": [
-        {
-            "first_name": "fre",
-            "last_name": "fre",
-            "gender": "m",
-            "age": 55,
-            "role": "mentalist",
-            "mana": 10
-        }
-    ],
+    "crew": [],
     "spaceships": [
         {
             "name": "Venus",
             "ship_type": "guerre",
             "condition": "dommage ",
-            "crew": []
+            "crew": [
+                {
+                    "first_name": "fre",
+                    "last_name": "fre",
+                    "gender": "m",
+                    "age": 33,
+                    "role": "civil"
+                },
+                {
+                    "first_name": "ded",
+                    "last_name": "ded",
+                    "gender": "m",
+                    "age": 55,
+                    "role": "mentalist",
+                    "mana": 10
+                }
+            ]
         }
     ]
 }
