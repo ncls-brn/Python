@@ -49,3 +49,11 @@ def check_crew(crew):
             print("L’équipage n'est pas prêt. Il manque un pilote ou un technicien.")
     else:
         print("L’équipage doit contenir au moins 2 membres.")
+def remove_member(crew):
+    last_name = input("Nom de famille du membre à supprimer : ")
+    for member in crew:
+        if member["last_name"] == last_name:
+            crew.remove(member)
+            print(f"{last_name} a été retiré de l'équipage.")
+            return
+    print("Erreur : Nom de famille introuvable.")

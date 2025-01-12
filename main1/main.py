@@ -253,8 +253,34 @@ def check_fleet_preparation(fleet):
             print(f"Le vaisseau {spaceship.name} est prêt pour la mission.")
         else:
             print(f"Le vaisseau {spaceship.name} n'est pas prêt. Il manque des membres essentiels.")
-       
- 
+
+
+def remove_member(crew):
+    last_name = input("Nom de famille du membre à supprimer : ")
+    
+    # Recherche dans l'équipage
+    for member in crew:
+        if member.last_name.lower() == last_name.lower():
+            crew.remove(member)
+            print(f"{last_name} a été retiré de l'équipage.")
+            return
+    print("Erreur : Nom de famille introuvable.")
+
+
+def display_spaceships(fleet):
+    if not fleet.spaceships:
+        print("Aucun vaisseau dans la flotte.")
+    else:
+        print("\nListe des vaisseaux dans la flotte :")
+        for i, spaceship in enumerate(fleet.spaceships, 1):
+            print(f"{i}. {spaceship.name} - Type : {spaceship.ship_type} - Condition : {spaceship.condition}")
+            print("  Équipage :")
+            if spaceship.crew:
+                for member in spaceship.crew:
+                    print(f"    {member.first_name} {member.last_name} - {member.role} ({member.age} ans)")
+            else:
+                print("  Aucun membre d'équipage.")
+
         
 def save_data(fleet, crew, file_name="./main1/data.json"):
     data = {
@@ -351,19 +377,19 @@ def load_data(file_name="./main1/data.json"):
                     print(f"Rôle inconnu : {role}. Impossible de charger ce membre.")
                     continue
                 
-                spaceship.add_member(member)  # Ajouter le membre au vaisseau
+                spaceship.add_member(member)  
                 
-            fleet.add_spaceship(spaceship)  # Ajouter le vaisseau à la flotte
+            fleet.add_spaceship(spaceship) 
 
         print("Données chargées avec succès.")
-        return fleet, crews  # Retourner à la fois la flotte et l'équipage au sol
+        return fleet, crews  
 
     except FileNotFoundError:
         print(f"Aucun fichier trouvé avec le nom {file_name}.")
         return Fleet("Flotte Alpha"), []
 
 def main():
-    fleet, crew = load_data()  
+    fleet, crews = load_data()  
 
     while True:
         print("\nMenu principal :")
@@ -375,7 +401,8 @@ def main():
         print("6. Ajouter un vaisseau à la flotte")
         print("7. Ajouter un membre à un vaisseau")
         print("8. Vérifier la préparation de la flotte")
-        print("9. Quitter")
+        print("9. Supprimer un membre de l'équipage")
+        print("0. Quitter")
         
         choice = input("Choisissez une option : ")
 
@@ -397,7 +424,19 @@ def main():
             case "8":
                 check_fleet_preparation(fleet)
             case "9":
-                save_data(fleet, crew)
+                remove_choice = input("Supprimer un membre de l'équipage au sol (1) ou d'un vaisseau (2) ? ")
+                if remove_choice == "1":
+                    display_crew()
+                    remove_member(crews)  
+                elif remove_choice == "2":
+                    display_spaceships(fleet) 
+                    spaceship_choice = int(input("Choisissez un vaisseau (numéro) : ")) - 1
+                    spaceship = fleet.spaceships[spaceship_choice]
+                    remove_member(spaceship.crew) 
+                else:
+                    print("Option invalide.")
+            case "0":
+                save_data(fleet, crews)
                 print("Au revoir!")
                 break
             case _:
