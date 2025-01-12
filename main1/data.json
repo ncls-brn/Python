@@ -1,5 +1,13 @@
 {
-    "crew": [],
+    "crew": [
+        {
+            "first_name": "pol",
+            "last_name": "pol",
+            "gender": "m",
+            "age": 33,
+            "role": "civil"
+        }
+    ],
     "spaceships": [
         {
             "name": "Venus",
@@ -20,14 +28,16 @@
                     "age": 55,
                     "role": "mentalist",
                     "mana": 10
+                },
+                {
+                    "first_name": "aza",
+                    "last_name": "aza",
+                    "gender": "m",
+                    "age": 44,
+                    "role": "pilote",
+                    "R\u00f4le": "pilote"
                 }
             ]
-        },
-        {
-            "name": "doudou",
-            "ship_type": "transport",
-            "condition": "operationnel",
-            "crew": []
         }
     ]
 }

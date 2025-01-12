@@ -60,6 +60,12 @@ Le programme permet de sauvegarder et de charger les données de l'équipage et 
 Fonctionnement du programme
 Menu principal
 
+6. Supprimer un membre de l'équipage
+
+    remove_member(crew) : Supprime un membre de l'équipage au sol. L'utilisateur entre le nom de famille du membre à supprimer.
+
+    remove_member(spaceship.crew) : Supprime un membre de l'équipage d'un vaisseau en spécifiant le vaisseau et le membre à supprimer.
+
 Le programme propose un menu interactif avec les options suivantes :
 
     Ajouter une personne civile à l'équipage
@@ -70,6 +76,7 @@ Le programme propose un menu interactif avec les options suivantes :
     Ajouter un vaisseau à la flotte
     Ajouter un membre à un vaisseau
     Vérifier la préparation de la flotte
+    Supprimer un membre de l'équipe
     Quitter le programme et sauvegarder les données
 
 Gestion des actions du Mentalist
@@ -110,6 +117,7 @@ Le programme propose un menu interactif avec les options suivantes :
     Ajouter un vaisseau à la flotte
     Ajouter un membre à un vaisseau
     Vérifier la préparation de la flotte
+    Supprimer un membre de l'équipe
     Quitter le programme et sauvegarder les données
 
 Gestion des actions du Mentalist

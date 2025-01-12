@@ -254,7 +254,7 @@ def check_fleet_preparation(fleet):
         else:
             print(f"Le vaisseau {spaceship.name} n'est pas prêt. Il manque des membres essentiels.")
 
-
+# Supprime un membre d'équipage 
 def remove_member(crew):
     last_name = input("Nom de famille du membre à supprimer : ")
     
@@ -266,7 +266,7 @@ def remove_member(crew):
             return
     print("Erreur : Nom de famille introuvable.")
 
-
+#Affiche des détails des vaisseaux
 def display_spaceships(fleet):
     if not fleet.spaceships:
         print("Aucun vaisseau dans la flotte.")
@@ -281,7 +281,7 @@ def display_spaceships(fleet):
             else:
                 print("  Aucun membre d'équipage.")
 
-        
+#Sauvegarde  des données      
 def save_data(fleet, crew, file_name="./main1/data.json"):
     data = {
         "crew": [member.to_dict() for member in crew],  
@@ -297,7 +297,7 @@ def save_data(fleet, crew, file_name="./main1/data.json"):
     except Exception as e:
         print(f"Erreur lors de la sauvegarde des données: {e}")  
 
-
+#Chargement des données
 def load_data(file_name="./main1/data.json"):
     try:
         with open(file_name, "r") as f:
