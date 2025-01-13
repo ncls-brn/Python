@@ -1,33 +1,26 @@
 from Person import Person
 
 class Mentalist(Person):
-    def __init__(self, first_name, last_name, gender, age, mana=100):
+    def __init__(self, first_name, last_name, gender, age,role= "mentalist", mana=10):
         super().__init__(first_name, last_name, gender, age)
-        self.__mana = mana  
-    
-    
-    def get_mana(self):
-        return self.__mana
+        self.mana = mana
+        self.role= role
 
-    def set_mana(self, mana):
-        if 0 <= mana <= 100:
-            self.__mana = mana
+    def to_dict(self):
+        data = super().to_dict()
+        data["mana"] = self.mana
+        return data
+    
+    def act(self, target):
+        if self.mana >= 20:
+            self.mana -= 20
+            print(f"{self.first_name} utilise son pouvoir mental sur {target.first_name}.")
         else:
-            print("Les points de mana doivent être compris entre 0 et 100.")
-    
-    
-    def act(self, target_person):
-        if self.get_mana() >= 20:
-            self.__mana -= 20
-            print(f"{self.get_first_name()} {self.get_last_name()} utilise son pouvoir mental pour influencer {target_person.get_first_name()} {target_person.get_last_name()}.")
-            target_person.act()
-        else:
-            print(f"{self.get_first_name()} {self.get_last_name()} n'a pas assez de mana pour agir.")
-    
-    
+            print(f"{self.first_name} n'a pas assez de mana pour influencer {target.first_name}")
+
     def recharge_mana(self):
-        if self.get_mana() < 100:
-            self.__mana = min(self.get_mana() + 50, 100)
-            print(f"{self.get_first_name()} {self.get_last_name()} recharge son mana. Mana actuel: {self.get_mana()}")
-        else:
-            print(f"{self.get_first_name()} {self.get_last_name()} a déjà un mana complet.")
+        if self.mana < 100:
+            self.mana += 50
+            print(f"{self.first_name} recharge son mana.")
+
+

@@ -1,13 +1,5 @@
 {
-    "crew": [
-        {
-            "first_name": "pol",
-            "last_name": "pol",
-            "gender": "m",
-            "age": 33,
-            "role": "civil"
-        }
-    ],
+    "crew": [],
     "spaceships": [
         {
             "name": "Venus",
@@ -15,8 +7,8 @@
             "condition": "dommage ",
             "crew": [
                 {
-                    "first_name": "fre",
-                    "last_name": "fre",
+                    "first_name": "pol",
+                    "last_name": "pol",
                     "gender": "m",
                     "age": 33,
                     "role": "civil"
@@ -25,17 +17,25 @@
                     "first_name": "ded",
                     "last_name": "ded",
                     "gender": "m",
-                    "age": 55,
-                    "role": "mentalist",
-                    "mana": 10
+                    "age": 33,
+                    "role": "pilote",
+                    "R\u00f4le": "pilote"
+                },
+                {
+                    "first_name": "szs",
+                    "last_name": "szs",
+                    "gender": "m",
+                    "age": 44,
+                    "role": "technicien",
+                    "R\u00f4le": "technicien"
                 },
                 {
                     "first_name": "aza",
                     "last_name": "aza",
                     "gender": "m",
                     "age": 44,
-                    "role": "pilote",
-                    "R\u00f4le": "pilote"
+                    "role": "mentalist",
+                    "mana": 10
                 }
             ]
         }

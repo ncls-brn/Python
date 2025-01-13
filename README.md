@@ -77,6 +77,7 @@ Le programme propose un menu interactif avec les options suivantes :
     Ajouter un membre à un vaisseau
     Vérifier la préparation de la flotte
     Supprimer un membre de l'équipe
+    Supprimer un vaisseau
     Quitter le programme et sauvegarder les données
 
 Gestion des actions du Mentalist
@@ -118,6 +119,7 @@ Le programme propose un menu interactif avec les options suivantes :
     Ajouter un membre à un vaisseau
     Vérifier la préparation de la flotte
     Supprimer un membre de l'équipe
+    Supprimoer un vaisseau
     Quitter le programme et sauvegarder les données
 
 Gestion des actions du Mentalist
