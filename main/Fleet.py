@@ -8,7 +8,7 @@ class Fleet:
         self.spaceships = []
 
     def add_spaceship(self, spaceship):
-        if len(self.spaceships) < 15:  # Capacité maximale de 15 vaisseaux par flotte
+        if len(self.spaceships) < 15:  
             self.spaceships.append(spaceship)
             print(f"Le vaisseau {spaceship.name} a été ajouté à la flotte {self.name}.")
         else:
