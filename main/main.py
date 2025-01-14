@@ -465,7 +465,7 @@ def main():
                 remove_spaceship(fleet)
             case "0":
                 save_data(fleet, crews)
-                print("Au revoir!")
+                print("Au revoir!!")
                 break
             case _:
                 print("Option invalide.")
