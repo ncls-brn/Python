@@ -306,7 +306,7 @@ def remove_spaceship(fleet):
         print(f"Le vaisseau {spaceship.name} ne peut pas être supprimé car il a des membres d'équipage.")
 
 #Sauvegarde  des données      
-def save_data(fleet, crew, file_name="./main1/data.json"):
+def save_data(fleet, crew, file_name="./main/data.json"):
     data = {
         "crew": [member.to_dict() for member in crew],  
         "spaceships": [spaceship.to_dict() for spaceship in fleet.spaceships]
@@ -322,7 +322,7 @@ def save_data(fleet, crew, file_name="./main1/data.json"):
         print(f"Erreur lors de la sauvegarde des données: {e}")  
 
 #Chargement des données
-def load_data(file_name="./main1/data.json"):
+def load_data(file_name="./main/data.json"):
     try:
         with open(file_name, "r") as f:
             data = json.load(f)
